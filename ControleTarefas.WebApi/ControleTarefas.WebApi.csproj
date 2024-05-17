@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
@@ -16,6 +17,10 @@
     <ProjectReference Include="..\ControleTarefas.Service.Interface\ControleTarefas.Service.Interface.csproj" />
     <ProjectReference Include="..\ControleTarefas.Service\ControleTarefas.Service.csproj" />
     <ProjectReference Include="..\ControleTarefas.Utils\ControleTarefas.Utils.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Messages\" />
   </ItemGroup>
 
 </Project>
