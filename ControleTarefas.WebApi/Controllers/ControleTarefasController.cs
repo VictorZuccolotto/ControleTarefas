@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ControleTarefas.Utils.Exceptions;
+using Microsoft.AspNetCore.Mvc;
 namespace ControleTarefas.Api.Controllers
 {
     [ApiController]
@@ -19,7 +20,8 @@ namespace ControleTarefas.Api.Controllers
         {
             var tarefa = Tarefas.IndexOf(nome);
             if (tarefa == -1)
-                return NotFound();
+                throw new GenericException("Tarefa não existe");
+            //return NotFound();
             return Tarefas[tarefa];
         }
 
@@ -28,9 +30,10 @@ namespace ControleTarefas.Api.Controllers
         {
             var tarefa = Tarefas.IndexOf(novaTarefa);
             if (tarefa != -1)
-                return Conflict();
+                throw new BusinessException("Tarefa já existe");
+            //return Conflict();
             Tarefas.Add(novaTarefa);
-            return Created("",novaTarefa);
+            return Created("", novaTarefa);
 
         }
 
@@ -39,7 +42,8 @@ namespace ControleTarefas.Api.Controllers
         {
             var tarefa = Tarefas.IndexOf(nomeTarefa);
             if (tarefa == -1)
-              return NotFound();
+                throw new GenericException("Tarefa não existe");
+            //return NotFound();
             Tarefas.Remove(nomeTarefa);
             return nomeTarefa;
         }
@@ -49,7 +53,8 @@ namespace ControleTarefas.Api.Controllers
         {
             var index = Tarefas.IndexOf(nomeTarefa);
             if (index == -1)
-                return NotFound();
+                throw new GenericException("Tarefa não existe");
+            //return NotFound();
             Tarefas[index] = novaTarefa;
             return novaTarefa;
         }
