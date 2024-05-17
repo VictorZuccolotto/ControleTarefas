@@ -1,4 +1,7 @@
-﻿using ControleTarefas.Utils.Exceptions;
+﻿using ControleTarefas.Entity.DTOs;
+using ControleTarefas.Entity.Entities;
+using ControleTarefas.Service.Interface.IServices;
+using ControleTarefas.Utils.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 namespace ControleTarefas.Api.Controllers
 {
@@ -7,56 +10,42 @@ namespace ControleTarefas.Api.Controllers
     public class ControleTarefaController : ControllerBase
     {
 
-        private static List<string> Tarefas { get; set; } = new() { new("Teste"), new("Instalação"), new("Configuração"), new("Criar Projeto"), new("Exercício Prático") };
+        private readonly ITarefaService _tarefaService;
+
+        public ControleTarefaController(ITarefaService tarefaService)
+        {
+            _tarefaService = tarefaService;
+        }
 
         [HttpGet("ListarTodasTarefas")]
-        public ActionResult<List<string>> Get()
+        public ActionResult<List<TarefaDTO>> Get()
         {
-            return Tarefas;
+            return _tarefaService.GetAll();
         }
 
         [HttpGet("ListarTarefa")]
-        public ActionResult<string> Get(string nome)
+        public ActionResult<TarefaDTO> Get(string nome)
         {
-            var tarefa = Tarefas.IndexOf(nome);
-            if (tarefa == -1)
-                throw new GenericException("Tarefa não existe");
-            //return NotFound();
-            return Tarefas[tarefa];
+            return _tarefaService.Get(nome);
         }
 
         [HttpPost("InserirTarefa")]
-        public ActionResult<string> Post(string novaTarefa)
+        public ActionResult<TarefaDTO> Post(Tarefa novaTarefa)
         {
-            var tarefa = Tarefas.IndexOf(novaTarefa);
-            if (tarefa != -1)
-                throw new BusinessException("Tarefa já existe");
-            //return Conflict();
-            Tarefas.Add(novaTarefa);
-            return Created("", novaTarefa);
+            return _tarefaService.Add(novaTarefa);
 
         }
 
         [HttpDelete("DeletarTarefa")]
-        public ActionResult<string> Delete(string nomeTarefa)
+        public ActionResult<TarefaDTO> Delete(string nomeTarefa)
         {
-            var tarefa = Tarefas.IndexOf(nomeTarefa);
-            if (tarefa == -1)
-                throw new GenericException("Tarefa não existe");
-            //return NotFound();
-            Tarefas.Remove(nomeTarefa);
-            return nomeTarefa;
+            return _tarefaService.Delete(nomeTarefa);
         }
 
         [HttpPut("AlterarTarefa")]
-        public ActionResult<string> Put(string nomeTarefa, string novaTarefa)
+        public ActionResult<TarefaDTO> Put(string titulo, Tarefa novaTarefa)
         {
-            var index = Tarefas.IndexOf(nomeTarefa);
-            if (index == -1)
-                throw new GenericException("Tarefa não existe");
-            //return NotFound();
-            Tarefas[index] = novaTarefa;
-            return novaTarefa;
+            return _tarefaService.Update(titulo, novaTarefa);
         }
     }
 }

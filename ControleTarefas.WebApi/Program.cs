@@ -1,23 +1,12 @@
-var builder = WebApplication.CreateBuilder(args);
+using ControleTarefas.Api;
+using Microsoft.AspNetCore;
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+public static class Program
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+
+    public static void Main(string[] args)
+    {
+            var webHost = WebHost.CreateDefaultBuilder(args).UseStartup<Startup>();
+            webHost.Build().Run();
+    }
 }
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
