@@ -2,6 +2,7 @@
 using ControleTarefas.Repository.Repositories;
 using ControleTarefas.Service.Interface.IServices;
 using ControleTarefas.Service.Services;
+using ControleTarefas.WebApi.Middleware;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 
@@ -17,7 +18,7 @@ namespace ControleTarefas.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
+            services.AddTransient<ApiMiddleware>();
             services.AddScoped<ITarefaRepository, TarefaRepository>();
             services.AddScoped<ITarefaService, TarefaService>();
 
@@ -44,7 +45,7 @@ namespace ControleTarefas.Api
 
             app.UseRouting();
 
-
+            app.UseMiddleware<ApiMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
