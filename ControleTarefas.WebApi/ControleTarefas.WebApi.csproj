@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="log4net" Version="2.0.17" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
@@ -18,6 +19,7 @@
     <ProjectReference Include="..\ControleTarefas.Service.Interface\ControleTarefas.Service.Interface.csproj" />
     <ProjectReference Include="..\ControleTarefas.Service\ControleTarefas.Service.csproj" />
     <ProjectReference Include="..\ControleTarefas.Utils\ControleTarefas.Utils.csproj" />
+    <ProjectReference Include="..\ControleTarefas.Validator\ControleTarefas.Validator.csproj" />
   </ItemGroup>
 
 </Project>

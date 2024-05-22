@@ -1,5 +1,6 @@
 ﻿using ControleTarefas.Entity.DTOs;
 using ControleTarefas.Entity.Entities;
+using ControleTarefas.Entity.Model;
 using ControleTarefas.Service.Interface.IServices;
 using ControleTarefas.Utils.Exceptions;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +31,7 @@ namespace ControleTarefas.Api.Controllers
         }
 
         [HttpPost("InserirTarefa")]
-        public ActionResult<TarefaDTO> Post(Tarefa novaTarefa)
+        public ActionResult<TarefaDTO> Post(CadastroTarefaModel novaTarefa)
         {
             return _tarefaService.Add(novaTarefa);
 

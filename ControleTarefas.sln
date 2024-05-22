@@ -17,6 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleTarefas.Service", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleTarefas.Service.Interface", "ControleTarefas.Service.Interface\ControleTarefas.Service.Interface.csproj", "{7B2E2B1F-6EC8-4830-85A3-8954C6090461}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleTarefas.Validator", "ControleTarefas.Validator\ControleTarefas.Validator.csproj", "{3CC842EF-0B91-46BB-977E-1126DD636428}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5BFEFECC-D3EB-477E-952C-D4143F717ABB}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +58,10 @@ Global
 		{7B2E2B1F-6EC8-4830-85A3-8954C6090461}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B2E2B1F-6EC8-4830-85A3-8954C6090461}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B2E2B1F-6EC8-4830-85A3-8954C6090461}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CC842EF-0B91-46BB-977E-1126DD636428}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CC842EF-0B91-46BB-977E-1126DD636428}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CC842EF-0B91-46BB-977E-1126DD636428}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CC842EF-0B91-46BB-977E-1126DD636428}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ControleTarefas.Entity.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,5 +21,9 @@ namespace ControleTarefas.Entity.DTOs
             Titulo = titulo;
         }
 
+        public TarefaDTO(Tarefa tarefa)
+        {
+            Titulo = tarefa.Titulo;
+        }
     }
 }

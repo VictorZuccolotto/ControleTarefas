@@ -1,5 +1,6 @@
 ﻿using ControleTarefas.Entity.DTOs;
 using ControleTarefas.Entity.Entities;
+using ControleTarefas.Entity.Model;
 using ControleTarefas.Repository.Interface.IRepositories;
 using ControleTarefas.Service.Interface.IServices;
 using ControleTarefas.Utils.Exceptions;
@@ -17,11 +18,11 @@ namespace ControleTarefas.Service.Services
             _tarefaRepository = tarefaRepository;
         }
 
-        public TarefaDTO Add(Tarefa novaTarefa)
+        public TarefaDTO Add(CadastroTarefaModel novaTarefa)
         {
             Tarefa tarefa = _tarefaRepository.Get(novaTarefa.Titulo);
             if (tarefa is null)
-                return new TarefaDTO(_tarefaRepository.Add(novaTarefa).Titulo);
+                return new TarefaDTO(_tarefaRepository.Add(new Tarefa(novaTarefa)));
             else
                 throw new BusinessException("Já existe no banco de dados");
         }

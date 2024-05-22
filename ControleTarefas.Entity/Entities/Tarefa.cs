@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ControleTarefas.Entity.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,11 @@ namespace ControleTarefas.Entity.Entities
         public Tarefa(string titulo)
         {
             Titulo = titulo;   
+        }
+
+        public Tarefa(CadastroTarefaModel tarefa)
+        {
+            Titulo = tarefa.Titulo;
         }
 
     }
