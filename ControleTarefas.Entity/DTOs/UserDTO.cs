@@ -1,4 +1,5 @@
 ﻿using ControleTarefas.Entity.Entities;
+using ControleTarefas.Entity.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace ControleTarefas.Entity.DTOs
 
         public string Nome { get; set; }
         public string Email { get; set; }
+        public PerfilEnum Role { get; set; }
 
         public UserDTO(string email)
         {
