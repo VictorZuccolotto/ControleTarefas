@@ -1,4 +1,5 @@
 ﻿
+using ControleTarefas.Repository;
 using ControleTarefas.Repository.Interface.IRepositories;
 using ControleTarefas.Repository.Repositories;
 using ControleTarefas.Service.Interface.IServices;
@@ -13,6 +14,7 @@ namespace ControleTarefas.WebApi.Configuration
             InjectServices(services);
             InjectRepositories(services);
 
+            services.AddScoped<ITransactionManager, TransactionManager>();
         }
 
         private static void InjectRepositories(IServiceCollection services)

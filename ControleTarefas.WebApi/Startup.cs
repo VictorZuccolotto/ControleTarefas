@@ -11,17 +11,19 @@ namespace ControleTarefas.Api
 {
     public class Startup
     {
-        public Startup()
+        public IConfiguration Configuracao { get; }
+        public Startup(IConfiguration configuracao)
         {
-
+            Configuracao = configuracao;
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddTransient<ApiMiddleware>();
             services.AddDependencyInjectionConfiguration();
+            services.AddDatabaseConfiguration(Configuracao);
             services.AddFluentConfiguration();
+            services.AddTransient<ApiMiddleware>();
 
             services.AddSwaggerGen(c =>
             {

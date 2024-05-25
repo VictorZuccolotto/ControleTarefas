@@ -1,42 +1,29 @@
 ﻿using ControleTarefas.Entity.DTOs;
 using ControleTarefas.Entity.Entities;
 using ControleTarefas.Repository.Interface.IRepositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace ControleTarefas.Repository.Repositories
 {
-    public class TarefaRepository : ITarefaRepository
+    public class TarefaRepository : CrudRepository<Tarefa>,ITarefaRepository
     {
-        private static List<Tarefa> Tarefas { get; set; } = new() { new("Teste"), new("Instalação"), new("Configuração"), new("Criar Projeto"), new("Exercício Prático") };
-
-
-        public Tarefa Update(string novoTitulo, Tarefa tarefa )
+        //private static List<Tarefa> Tarefas { get; set; } = new() { new("Teste"), new("Instalação"), new("Configuração"), new("Criar Projeto"), new("Exercício Prático") };
+        public TarefaRepository(Context context) : base(context)
         {
-
-            tarefa.Titulo = novoTitulo;
-            return tarefa;
         }
 
-        public Tarefa Delete(Tarefa tarefa)
+        public Task<Tarefa> GetByTitulo(string titulo, bool asNoTracking = false)
         {
-            Tarefas.Remove(tarefa);
-            return tarefa;
+            var query = EntitySet.AsQueryable();
+
+            if (asNoTracking)
+                query = query.AsNoTracking();
+
+            return query.FirstOrDefaultAsync(e => e.Titulo.ToLower() == titulo.ToLower());
         }
 
-        public Tarefa Add(Tarefa novaTarefa)
-        {
-                Tarefas.Add(novaTarefa);
-                return novaTarefa;
-        }
 
-        public Tarefa? Get(string titulo)
-        {
-            return Tarefas.FirstOrDefault(x => x.Titulo == titulo);
 
-        }
 
-        public List<Tarefa> GetAll()
-        {
-            return Tarefas;
-        }
     }
 }

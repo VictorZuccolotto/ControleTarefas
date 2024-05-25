@@ -2,14 +2,9 @@
 
 namespace ControleTarefas.Repository.Interface.IRepositories
 {
-    public interface ITarefaRepository
+    public interface ITarefaRepository: ICrudRepository<Tarefa>
     {
-        public Tarefa Get(string titulo);
-        public List<Tarefa> GetAll();
-        public Tarefa Add(Tarefa tarefa);
-        public Tarefa Update(string novoTitulo, Tarefa tarefa);
-        public Tarefa Delete(Tarefa titulo);
 
-
+        Task<Tarefa> GetByTitulo(string titulo, bool asNoTracking = false);
     }
 }

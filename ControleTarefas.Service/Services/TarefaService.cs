@@ -18,49 +18,55 @@ namespace ControleTarefas.Service.Services
             _tarefaRepository = tarefaRepository;
         }
 
-        public TarefaDTO Add(CadastroTarefaModel novaTarefa)
+        public async Task<TarefaDTO> Add(CadastroTarefaModel tarefaModel)
         {
-            Tarefa tarefa = _tarefaRepository.Get(novaTarefa.Titulo);
+            Tarefa tarefa = await _tarefaRepository.GetByTitulo(tarefaModel.Titulo);
             if (tarefa is null)
-                return new TarefaDTO(_tarefaRepository.Add(new Tarefa(novaTarefa)));
+                return new TarefaDTO( await _tarefaRepository.Add(new Tarefa(tarefaModel)));
             else
                 throw new BusinessException("Já existe no banco de dados");
         }
 
-        public TarefaDTO Delete(string titulo)
+        public async Task<TarefaDTO> Delete(string titulo)
         {
-            Tarefa tarefa = _tarefaRepository.Get(titulo);
+            Tarefa tarefa = await _tarefaRepository.GetByTitulo(titulo);
             if (tarefa is not null)
-                return new TarefaDTO(_tarefaRepository.Delete(tarefa).Titulo);
+                return new TarefaDTO( await _tarefaRepository.Delete(tarefa));
             else
                 throw new GenericException("Tarefa não existe");
         }
 
-        public TarefaDTO Get(string titulo)
+        public async Task<TarefaDTO> Get(string titulo)
         {
-            Tarefa tarefa = _tarefaRepository.Get(titulo);
+            Tarefa tarefa = await _tarefaRepository.GetByTitulo(titulo);
             if (tarefa is not null)
-                return new TarefaDTO(tarefa.Titulo);
+                return new TarefaDTO(tarefa);
             else
                 throw new GenericException("Tarefa nao existe");
         }
 
-        public List<TarefaDTO> GetAll()
+        public async Task<List<TarefaDTO>> GetAll()
         {
-            return _tarefaRepository.GetAll()
-                                    .Select(x => new TarefaDTO(x.Titulo))
-                                    .Distinct()
-                                    .OrderBy(x => x.Titulo) 
+            var Tarefas = await _tarefaRepository.GetAll();
+            return Tarefas.Select(x => new TarefaDTO(x.Titulo))
+                            .Distinct()
+                                .OrderBy(x => x.Titulo) 
                                     .ToList();
         }
 
-        public TarefaDTO Update(string titulo, Tarefa novaTarefa)
+        public async Task<TarefaDTO> Update(string titulo, Tarefa novaTarefa)
         {
-            Tarefa tarefa = _tarefaRepository.Get(titulo);
+            Tarefa tarefa = await _tarefaRepository.GetByTitulo(titulo);
             if (tarefa is not null)
-                return new TarefaDTO(_tarefaRepository.Update(novaTarefa.Titulo, tarefa).Titulo);
+            {
+                novaTarefa.Id = tarefa.Id;
+                return new TarefaDTO( await _tarefaRepository.Update(novaTarefa));
+            }
             else
+            {
+
                 throw new GenericException("Tarefa nao existe");
+            }
 
         }
     }

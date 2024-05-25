@@ -6,11 +6,11 @@ namespace ControleTarefas.Service.Interface.IServices
 {
     public interface ITarefaService
     {
-        public TarefaDTO Add(CadastroTarefaModel novaTarefa);
-        public TarefaDTO Update(string titulo, Tarefa novaTarefa);
-        public TarefaDTO Delete(string titulo);
-        public TarefaDTO Get(string titulo);
-        public List<TarefaDTO> GetAll();
+        public Task<TarefaDTO> Add(CadastroTarefaModel novaTarefa);
+        public Task<TarefaDTO> Update(string titulo, Tarefa novaTarefa);
+        public Task<TarefaDTO> Delete(string titulo);
+        public Task<TarefaDTO> Get(string titulo);
+        public Task<List<TarefaDTO>> GetAll();
 
     }
 }

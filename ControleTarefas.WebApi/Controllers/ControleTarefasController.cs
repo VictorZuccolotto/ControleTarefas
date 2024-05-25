@@ -2,8 +2,10 @@
 using ControleTarefas.Entity.Entities;
 using ControleTarefas.Entity.Model;
 using ControleTarefas.Service.Interface.IServices;
+using ControleTarefas.Utils;
 using ControleTarefas.Utils.Exceptions;
 using Microsoft.AspNetCore.Mvc;
+
 namespace ControleTarefas.Api.Controllers
 {
     [ApiController]
@@ -19,34 +21,38 @@ namespace ControleTarefas.Api.Controllers
         }
 
         [HttpGet("ListarTodasTarefas")]
-        public ActionResult<List<TarefaDTO>> Get()
+        public async Task<ActionResult<List<TarefaDTO>>> Get()
         {
-            return _tarefaService.GetAll();
+            return  await _tarefaService.GetAll();
         }
 
         [HttpGet("ListarTarefa")]
-        public ActionResult<TarefaDTO> Get(string nome)
+        public async Task<ActionResult<TarefaDTO>> Get(string nome)
         {
-            return _tarefaService.Get(nome);
+            return await _tarefaService.Get(nome);
         }
 
+
         [HttpPost("InserirTarefa")]
-        public ActionResult<TarefaDTO> Post(CadastroTarefaModel novaTarefa)
+        [Transaction]
+        public async Task<ActionResult<TarefaDTO>> Post(CadastroTarefaModel novaTarefa)
         {
-            return _tarefaService.Add(novaTarefa);
+            return await _tarefaService.Add(novaTarefa);
 
         }
 
         [HttpDelete("DeletarTarefa")]
-        public ActionResult<TarefaDTO> Delete(string nomeTarefa)
+        [Transaction]
+        public async Task<ActionResult<TarefaDTO>> Delete(string nomeTarefa)
         {
-            return _tarefaService.Delete(nomeTarefa);
+            return  await _tarefaService.Delete(nomeTarefa);
         }
 
         [HttpPut("AlterarTarefa")]
-        public ActionResult<TarefaDTO> Put(string titulo, Tarefa novaTarefa)
+        [Transaction]
+        public async Task<ActionResult<TarefaDTO>> PutAsync(string titulo, Tarefa novaTarefa)
         {
-            return _tarefaService.Update(titulo, novaTarefa);
+            return await _tarefaService.Update(titulo, novaTarefa);
         }
     }
 }
