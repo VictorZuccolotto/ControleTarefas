@@ -27,6 +27,7 @@ namespace ControleTarefas.WebApi.Configuration
         {
             services.AddScoped<ITarefaService, TarefaService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ITarefaUserService, TarefaUserService>();
         }
     }
 }

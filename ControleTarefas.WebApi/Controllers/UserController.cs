@@ -2,6 +2,7 @@
 using ControleTarefas.Entity.Entities;
 using ControleTarefas.Entity.Model;
 using ControleTarefas.Service.Interface.IServices;
+using ControleTarefas.Utils;
 using Microsoft.AspNetCore.Mvc;
 namespace ControleTarefas.Api.Controllers
 {
@@ -18,9 +19,9 @@ namespace ControleTarefas.Api.Controllers
         }
 
         [HttpGet("ListarTodasUsuarios")]
-        public ActionResult<List<UserDTO>> Get()
+        public async Task<ActionResult<List<UserDTO>>> Get()
         {
-            return _userService.GetAll();
+            return await _userService.GetAll();
         }
 
         [HttpGet("ListarUsuario")]
@@ -30,9 +31,10 @@ namespace ControleTarefas.Api.Controllers
         }
 
         [HttpPost("InserirUsuario")]
-        public ActionResult<UserDTO> Post(CadastroUsuarioModel user)
+        [Transaction]
+        public async Task<ActionResult<UserDTO>> Post(CadastroUsuarioModel user)
         {
-            return _userService.Add(user);
+            return await _userService.Add(user);
 
         }
 

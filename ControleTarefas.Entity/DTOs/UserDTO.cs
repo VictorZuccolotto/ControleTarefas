@@ -24,6 +24,7 @@ namespace ControleTarefas.Entity.DTOs
         {
             Email = user.Email;
             Nome = user.Nome;
+            Role = user.Role;
         }
     }
 }

@@ -1,41 +1,26 @@
 ﻿using ControleTarefas.Entity.Entities;
 using ControleTarefas.Repository.Interface.IRepositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace ControleTarefas.Repository.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : CrudRepository<User>, IUserRepository
     {
-        private static List<User> Usuarios { get; set; } = new() { new("Antonio@Pitang.com"), new("Bernardo@Pitang.com"), new("Claudia@Pitang.com"), new("Danilo@Pitang.com"), new("Eduarda@Pitang.com") };
+        public UserRepository(Context context) : base(context) { }
 
-
-        //public User Update(string email, User user )
-        //{
-        //    var u = Usuarios.FindIndex(x => x.Email == email);
-        //    Usuarios[u] = user;
-        //    return user;
-        //}
-
-        //public User Delete(User user)
-        //{
-        //    Usuarios.Remove(user);
-        //    return user;
-        //}
-
-        public User Add(User user)
+        public User GetByEmail(string email)
         {
-            Usuarios.Add(user);
+            var user = EntitySet.FirstOrDefault(usuario => usuario.Email.Equals(email));
             return user;
         }
 
-        public User? Get(string email)
+        public async Task<User> ObterUser(int idUsuario)
         {
-            return Usuarios.FirstOrDefault(x => x.Email == email);
+            var query = EntitySet.Include(e => e.TarefasUsuario)
+                                 .ThenInclude(e => e.Tarefa)
+                                 .Where(e => e.Id == idUsuario);
 
-        }
-
-        public List<User> GetAll()
-        {
-            return Usuarios;
+            return await query.FirstOrDefaultAsync();
         }
     }
 }

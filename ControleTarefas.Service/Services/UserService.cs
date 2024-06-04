@@ -1,5 +1,6 @@
 ﻿using ControleTarefas.Entity.DTOs;
 using ControleTarefas.Entity.Entities;
+using ControleTarefas.Entity.Enum;
 using ControleTarefas.Entity.Model;
 using ControleTarefas.Repository.Interface.IRepositories;
 using ControleTarefas.Service.Interface.IServices;
@@ -18,56 +19,35 @@ namespace ControleTarefas.Service.Services
             _userRepository = userRepository;
         }
 
-        public UserDTO Add(CadastroUsuarioModel novoUser)
+        public async Task<UserDTO> Add(CadastroUsuarioModel novoUser)
         {
-            User user = _userRepository.Get(novoUser.Email);
+            User user = _userRepository.GetByEmail(novoUser.Email);
             if (user is null)
             {
                 var usr = new User() {
                     Email = novoUser.Email,
-                    Nome = novoUser.Nome
+                    Nome = novoUser.Nome,
+                    Login = novoUser.Email,
+                    Role = PerfilEnum.Aluno,
+                    ModifiedAt = DateTime.Now
                 };
-                return new UserDTO(_userRepository.Add(usr));
+                return new UserDTO(await _userRepository.Add(usr));
             }
             else
                 throw new BusinessException("Já existe no banco de dados");
         }
 
-        //public UserDTO Delete(string titulo)
-        //{
-        //    User tarefa = _userRepository.Get(titulo);
-        //    if (tarefa is not null)
-        //        return new UserDTO(_userRepository.Delete(tarefa).Titulo);
-        //    else
-        //        throw new GenericException("User não existe");
-        //}
-
-        public UserDTO Get(string titulo)
+        public UserDTO Get(string email)
         {
-            User tarefa = _userRepository.Get(titulo);
-            if (tarefa is not null)
-                return new UserDTO(tarefa.Email);
-            else
-                throw new GenericException("User nao existe");
+            throw new NotImplementedException();
         }
 
-        public List<UserDTO> GetAll()
+        public async Task<List<UserDTO>> GetAll()
         {
-            return _userRepository.GetAll()
-                                    .Select(x => new UserDTO(x.Email))
-                                    .Distinct()
-                                    .OrderBy(x => x.Email) 
-                                    .ToList();
+            
+           var lista = await _userRepository.GetAll();
+           return lista.Select(e => new UserDTO(e)).ToList();
+           
         }
-
-        //public UserDTO Update(string titulo, User novaTarefa)
-        //{
-        //    User tarefa = _userRepository.Get(titulo);
-        //    if (tarefa is not null)
-        //        return new UserDTO(_userRepository.Update(novaTarefa.Titulo, tarefa).Titulo);
-        //    else
-        //        throw new GenericException("User nao existe");
-
-        //}
     }
 }
