@@ -11,6 +11,8 @@ namespace ControleTarefas.Entity.Entities
     {
         public string Titulo { get; set; }
 
+        public List<TarefaUser> UsuariosTarefa { get; set; }
+        //TarefaUser /\
         public Tarefa()
         {
             

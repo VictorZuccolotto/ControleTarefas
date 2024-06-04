@@ -7,7 +7,6 @@ namespace ControleTarefas.Repository.Repositories
 {
     public class TarefaRepository : CrudRepository<Tarefa>,ITarefaRepository
     {
-        //private static List<Tarefa> Tarefas { get; set; } = new() { new("Teste"), new("Instalação"), new("Configuração"), new("Criar Projeto"), new("Exercício Prático") };
         public TarefaRepository(Context context) : base(context)
         {
         }
